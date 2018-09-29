@@ -3,7 +3,7 @@
 
 ## 参数定义
 ```cgo
--cmds string
+  -cmds string
         Command that needs to be executed
   -ips string
         IP address list, split by ","
