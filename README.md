@@ -23,10 +23,10 @@
 
 *密码登录：*
 
-``./sshTool -ips 127.0.0.1,192.132.133.43 -p 22 -u root -pwd 123456``
+``./sshTool -ips 127.0.0.1,192.132.133.43 -p 22 -u root -pwd 123456 -cmds "mkdir fantasticKe;ls"``
 *秘钥登录：*
-``./sshTool -ips 127.0.0.1,192.132.133.43 -p 22 -u root -key /root/.ssh/id_rsa``
+``./sshTool -ips 127.0.0.1,192.132.133.43 -p 22 -u root -key /root/.ssh/id_rsa -cmds "mkdir fantasticKe;ls"``
 
 *免密登录：*
 
-``./sshTool -ips 127.0.0.1,192.132.133.43 -p 22 -u root``
+``./sshTool -ips 127.0.0.1,192.132.133.43 -p 22 -u root -cmds "mkdir fantasticKe;ls"``
