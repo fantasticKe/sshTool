@@ -24,8 +24,9 @@ func Run(hostCfg config.SSHHost, ch chan string) {
 
 //免密登录执行命令
 func DoCmdWithOutPwd(hostCfg config.SSHHost)  {
-	userHost := fmt.Sprintf("%s@%s -p %d",hostCfg.Username,hostCfg.Host, hostCfg.Port)
-	cmd := exec.Command("ssh",userHost,hostCfg.Cmds)
+	userHost := fmt.Sprintf("%s@%s",hostCfg.Username,hostCfg.Host)
+	port := fmt.Sprintf("-p %d",hostCfg.Port)
+	cmd := exec.Command("ssh", userHost, port, hostCfg.Cmds)
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 	cmd.Run()
