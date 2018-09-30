@@ -1,17 +1,36 @@
 package _func
 
 import (
+	"github.com/fantasticKe/sshTool/config"
 	"fmt"
-	"golang.org/x/crypto/ssh"
-	"io/ioutil"
-	"log"
-	"net"
+	"os/exec"
 	"os"
-	"sshTool/config"
+	"log"
+	"io/ioutil"
 	"time"
+	"net"
+	"golang.org/x/crypto/ssh"
 )
 
 //执行命令
+func Run(hostCfg config.SSHHost, ch chan string) {
+	if hostCfg.Password == "" && hostCfg.Key == "" {
+		DoCmdWithOutPwd(hostCfg)
+	}else {
+		DoCmd(hostCfg)
+	}
+	ch <- fmt.Sprintf("%s run: %s",hostCfg.Host,hostCfg.Cmds)
+}
+
+//免密登录执行命令
+func DoCmdWithOutPwd(hostCfg config.SSHHost)  {
+	userHost := fmt.Sprintf("%s@%s -p %d",hostCfg.Username,hostCfg.Host, hostCfg.Port)
+	cmd := exec.Command("ssh",userHost,hostCfg.Cmds)
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+}
+//密码登录执行命令
 func DoCmd(hostCfg config.SSHHost) {
 	session, err := SSHConnect(hostCfg,[]string{})
 	if err != nil {

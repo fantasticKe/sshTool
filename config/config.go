@@ -1,7 +1,6 @@
 package config
 
 import (
-	"errors"
 	"strings"
 )
 
@@ -22,7 +21,7 @@ func GetIpList(ips string) ([]string, error) {
 			ipList = append(ipList, ip)
 		}
 	}else {
-		return nil,errors.New("ips must join \",\"")
+		ipList = append(ipList,ips)
 	}
 	return ipList, nil
 }

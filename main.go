@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"log"
-	"sshTool/config"
-	"sshTool/func"
+	"github.com/fantasticKe/sshTool/func"
+	"github.com/fantasticKe/sshTool/config"
+	"fmt"
 )
 
 func main() {
@@ -35,7 +36,11 @@ func main() {
 		hostCfg.Cmds = *cmds
 		sshHosts = append(sshHosts, hostCfg)
 	}
+	ch := make(chan string,2)
 	for _, h := range sshHosts{
-		go _func.DoCmd(h)
+		go _func.Run(h,ch)
+	}
+	for range sshHosts{
+		fmt.Println(<-ch)
 	}
 }
